@@ -40,6 +40,8 @@ public class BTTH {
         System.out.println("1. Hien thi");
         System.out.println("2. Them moi");
         System.out.println("3. Cap nhat");
+        System.out.println("4. Xoa");
+        System.out.println("5. Tim kiem");
         System.out.println("6. Thoat");
         System.out.println("----------------");
     }
@@ -99,4 +101,6 @@ public class BTTH {
         MSSV[updateID] = newUpdate;
         System.out.println("Cap nhat thanh cong");
     }
+
+
 }
