@@ -27,7 +27,7 @@ public class BTTH {
                     updateMSSV(MSSV, length);
                     break;
                 case 4 :
-                    deleteMSSV(MSSV,length);
+                    length = deleteMSSV(MSSV,length);
                     break;
                 case 5:
                     break;
