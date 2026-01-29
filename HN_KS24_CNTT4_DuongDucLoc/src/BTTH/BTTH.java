@@ -26,6 +26,11 @@ public class BTTH {
                 case 3:
                     updateMSSV(MSSV, length);
                     break;
+                case 4 :
+                    deleteMSSV(MSSV,length);
+                    break;
+                case 5:
+                    break;
                 case 6:
                     System.out.println("Thoat thanh cong");
                     break;
@@ -102,5 +107,22 @@ public class BTTH {
         System.out.println("Cap nhat thanh cong");
     }
 
-
+    public static  int deleteMSSV(String[] MSSV , int length){
+        System.out.println("Nhap Ma sinh vien muon xoa :");
+         String deleteMSSV = sc.nextLine();
+         int index = 0;
+         for (int i = 0 ; i < MSSV.length ; i++){
+             if (MSSV[i].equals(deleteMSSV)){
+                 index = i;
+                 break;
+             }
+         }
+         for (int i = index ; i < length - 1; i++){
+             MSSV[i] = MSSV[i+1];
+         }
+         MSSV[length-1] = null;
+         length--;
+        System.out.println("Xoa thanh cong");
+        return  length;
+    }
 }
