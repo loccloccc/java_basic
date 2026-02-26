@@ -1,89 +1,102 @@
 package bai6;
 
-import bai5.Patient;
-
 import java.util.Scanner;
 
 public class Main {
-    private static  MedicineManager manager = new MedicineManager();
+
+    private static MedicineManager manager = new MedicineManager();
     static Scanner sc = new Scanner(System.in);
-    static Medicine medicine = new Medicine();
-    static void main(String[] args) {
-        int choice ;
+
+    public static void main(String[] args) {
+
+        int choice;
+
         do {
             renderMenu();
-            System.out.println("Lua chon cua ban :");
+            System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
-            switch (choice){
+            sc.nextLine();
+
+            switch (choice) {
+
                 case 1:
-                    System.out.println("Nhap ma thuoc : ");
-                    String id = sc.nextLine();
-                    medicine.setDrugID(id);
-                    System.out.println("Nhap ten thuoc : ");
-                    String name = sc.nextLine();
-                    medicine.setDrugName(name);
-                    System.out.println("Nhap gia thuoc : ");
-                    double price = sc.nextDouble();
-                    medicine.setUnitPrice(price);
-                    System.out.println("nhap so luong thuoc : ");
-                    int quantity = sc.nextInt();
-                    medicine.setQuantity(quantity);
-                    boolean checkAdd = manager.add(medicine);
-                    if (checkAdd) System.out.println("Them benh nhan thanh cong");
-                    else System.out.println("Them benh nhan that bai");
+                    Medicine medicine = new Medicine();
+
+                    System.out.print("Nhập mã thuốc: ");
+                    medicine.setDrugID(sc.nextLine());
+
+                    System.out.print("Nhập tên thuốc: ");
+                    medicine.setDrugName(sc.nextLine());
+
+                    System.out.print("Nhập giá thuốc: ");
+                    medicine.setUnitPrice(sc.nextDouble());
+
+                    System.out.print("Nhập số lượng: ");
+                    medicine.setQuantity(sc.nextInt());
+                    sc.nextLine();
+
+                    if (manager.add(medicine))
+                        System.out.println("Thêm thuốc thành công!");
+                    else
+                        System.out.println("Thêm thuốc thất bại!");
                     break;
+
                 case 2:
-                    System.out.println("nhap ma thuoc : ");
+                    System.out.print("Nhập mã thuốc: ");
                     String id2 = sc.nextLine();
 
-                    int reslut = manager.checkId(id2);
-                    if (reslut==-1) System.out.println("Khong ton tai");
-                    else {
-                        System.out.println("Nhap so luong thuoc : ");
+                    if (manager.checkId(id2) == -1) {
+                        System.out.println("Không tồn tại thuốc!");
+                    } else {
+                        System.out.print("Nhập số lượng mới: ");
                         int quantity2 = sc.nextInt();
-                        Medicine medicineUpdate = manager.updateQuantity(id2,quantity2);
-                        if (medicineUpdate == null) System.out.println("Cap nhat khong thanh cong");
-                        else System.out.println("cap nhat thanh cong");
+                        sc.nextLine();
+
+                        Medicine updated = manager.updateQuantity(id2, quantity2);
+                        if (updated == null)
+                            System.out.println("Cập nhật thất bại!");
+                        else
+                            System.out.println("Cập nhật thành công!");
                     }
                     break;
+
                 case 3:
-                    System.out.println("Nhap ma thuoc muon xoa : ");
+                    System.out.print("Nhập mã thuốc muốn xóa: ");
                     String id3 = sc.nextLine();
-                    int checkId = manager.checkId(id3);
-                    if (checkId==-1){
-                        System.out.println("Ma benh nhan khong ton tai");
-                    }else {
-                        Medicine medicineDelete = manager.deleteMedici(id3);
-                        if (medicineDelete == null) System.out.println("Xuat vien that bai");
-                        System.out.println("Xoa thanh cong");
-                    }
+
+                    Medicine deleted = manager.deleteMedicine(id3);
+                    if (deleted == null)
+                        System.out.println("Không tồn tại thuốc!");
+                    else
+                        System.out.println("Xóa thành công!");
                     break;
+
                 case 4:
                     manager.display();
                     break;
+
                 case 5:
-                    manager.displaysmall50();
+                    manager.displaySmall50();
                     break;
+
                 case 6:
-                    System.out.println("thoat");
+                    System.out.println("Thoát chương trình.");
                     break;
+
                 default:
-                    System.out.println("khong co lua chon nay");
+                    System.out.println("Không có lựa chọn này!");
             }
-        }while (choice!=6);
 
+        } while (choice != 6);
     }
-    public static void renderMenu() {
 
-        System.out.println("||=======================================MENU=======================================||");
-        System.out.println("||                                                                                ||");
-        System.out.println("||        1. Thêm thuốc vào đơn                                                  ||");
-        System.out.println("||        2. Điều chỉnh số lượng                                                 ||");
-        System.out.println("||        3. Xóa thuốc                                                           ||");
-        System.out.println("||        4. In hóa đơn                                                          ||");
-        System.out.println("||        5. Tìm thuốc giá rẻ                                                    ||");
-        System.out.println("||        6. Thoát                                                               ||");
-        System.out.println("||                                                                                ||");
-        System.out.println("||================================================================================||");
+    public static void renderMenu() {
+        System.out.println("\n===== MENU =====");
+        System.out.println("1. Thêm thuốc");
+        System.out.println("2. Điều chỉnh số lượng");
+        System.out.println("3. Xóa thuốc");
+        System.out.println("4. In hóa đơn");
+        System.out.println("5. Thuốc giá < 50.000");
+        System.out.println("6. Thoát");
     }
 }

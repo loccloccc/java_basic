@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicineManager {
-    private List<Medicine> medicineList;
 
-    public MedicineManager(List<Medicine> medicineList) {
-        this.medicineList = new ArrayList<>();
-    }
-    public MedicineManager() {}
+    private List<Medicine> medicineList = new ArrayList<>();
 
-    // them thuoc
-    public boolean add(Medicine m){
+    // thêm thuốc
+    public boolean add(Medicine m) {
         return medicineList.add(m);
     }
-    // sua so luong
-    public Medicine updateQuantity(String id , int newQuantity){
+
+    // sửa số lượng (nếu = 0 thì xóa)
+    public Medicine updateQuantity(String id, int newQuantity) {
         int index = checkId(id);
-        if (index == -1){
+        if (index == -1) {
             return null;
         }
+
         Medicine medicine = medicineList.get(index);
 
         if (newQuantity == 0) {
@@ -30,45 +28,57 @@ public class MedicineManager {
         medicine.setQuantity(newQuantity);
         return medicine;
     }
-    // xoa thuoc
-    public Medicine deleteMedici(String id){
+
+    // xóa thuốc
+    public Medicine deleteMedicine(String id) {
         int index = checkId(id);
-        if (index == -1){
+        if (index == -1) {
             return null;
         }
-        return  medicineList.remove(index);
+        return medicineList.remove(index);
     }
-    // in hoa don
-    public void display(){
+
+    // in hóa đơn
+    public void display() {
         double total = 0;
-        if (medicineList.isEmpty()){
-            System.out.println("khong co don thuoc nao ");
+
+        if (medicineList.isEmpty()) {
+            System.out.println("Không có đơn thuốc nào.");
             return;
         }
-        System.out.println("Don thuoc cua ban : ");
-        for (Medicine m : medicineList){
-            System.out.println("Ten thuoc :  " + m.getDrugName() + " So luong : " + m.getQuantity() + " Gia : " + m.getUnitPrice());
-            total+=(m.getQuantity()*m.getUnitPrice());
+
+        System.out.println("===== ĐƠN THUỐC =====");
+        for (Medicine m : medicineList) {
+            System.out.println("Tên thuốc: " + m.getDrugName()
+                    + " | Số lượng: " + m.getQuantity()
+                    + " | Giá: " + m.getUnitPrice());
+            total += m.getQuantity() * m.getUnitPrice();
         }
-        System.out.println("Thanh tien : " + total);
+
+        System.out.println("Thành tiền: " + total);
     }
-    // tim thuoc gia re < 50.000;
-    public void displaysmall50(){
-        if (medicineList.isEmpty()){
-            System.out.println("khong co don thuoc nao ");
+
+    // thuốc giá < 50.000
+    public void displaySmall50() {
+        if (medicineList.isEmpty()) {
+            System.out.println("Không có đơn thuốc nào.");
             return;
         }
-        System.out.println("Don thuoc cua ban : ");
-        for (Medicine m : medicineList){
-            if (m.getUnitPrice() < 50000){
-                System.out.println("Ten thuoc :  " + m.getDrugName() + " So luong : " + m.getQuantity() + " Gia : " + m.getUnitPrice());
+
+        System.out.println("===== THUỐC GIÁ < 50.000 =====");
+        for (Medicine m : medicineList) {
+            if (m.getUnitPrice() < 50000) {
+                System.out.println("Tên thuốc: " + m.getDrugName()
+                        + " | Số lượng: " + m.getQuantity()
+                        + " | Giá: " + m.getUnitPrice());
             }
         }
     }
-    // check id
-    public int checkId(String id){
+
+    // kiểm tra ID
+    public int checkId(String id) {
         for (int i = 0; i < medicineList.size(); i++) {
-            if (medicineList.get(i).getDrugID().compareTo(id) == 0){
+            if (medicineList.get(i).getDrugID().equals(id)) {
                 return i;
             }
         }
